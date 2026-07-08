@@ -82,3 +82,33 @@ onValue(ref(db, "seats"), (snapshot) => {
   }
 
 });
+// 30秒ごとに終了時間をチェック
+setInterval(() => {
+
+  onValue(ref(db, "seats"), (snapshot) => {
+
+    const data = snapshot.val();
+    if (!data) return;
+
+    for (let i = 1; i <= 6; i++) {
+
+      if (!data[i]) continue;
+
+      if (
+        data[i].status === "使用中" &&
+        data[i].endTime <= Date.now()
+      ) {
+
+        set(ref(db, "seats/" + i), {
+          status: "空席",
+          course: 0,
+          endTime: 0
+        });
+
+      }
+
+    }
+
+  });
+
+}, 30000);
