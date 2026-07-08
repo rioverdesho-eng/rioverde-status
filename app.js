@@ -122,3 +122,45 @@ setInterval(() => {
   });
 
 }, 30000);
+// 残り時間を1秒ごとに更新
+setInterval(() => {
+
+  const seatsRef = ref(db, "seats");
+
+  onValue(seatsRef, (snapshot) => {
+
+    const data = snapshot.val();
+
+    if (!data) return;
+
+    for (let i = 1; i <= 6; i++) {
+
+      const time = document.getElementById("time" + i);
+
+      if (!time) continue;
+
+      if (
+        data[i] &&
+        data[i].status === "使用中" &&
+        data[i].endTime > Date.now()
+      ) {
+
+        const remain = Math.ceil(
+          (data[i].endTime - Date.now()) / 60000
+        );
+
+        time.textContent = "残り時間：" + remain + "分";
+
+      } else {
+
+        time.textContent = "残り時間：--";
+
+      }
+
+    }
+
+  }, {
+    onlyOnce: true
+  });
+
+}, 1000);
