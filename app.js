@@ -109,7 +109,7 @@ function updateDisplay(data) {
         const sec = Math.floor((remain % 60000) / 1000);
 
         time.textContent =
-          `残り時間：${min}分 ${sec}秒`;
+          `残り時間：${min}分`;
 
       } else {
 
