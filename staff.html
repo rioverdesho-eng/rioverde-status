@@ -1,37 +1,146 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rioverde スタッフ画面</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rioverde スタッフ画面</title>
+
+<link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
 
 <header>
-  <h1>Rioverde</h1>
-  <p>スタッフ管理</p>
+<h1>Rioverde</h1>
+<p>スタッフ管理</p>
 </header>
 
 <div id="login">
-  <h2>暗証番号</h2>
-  <input type="password" id="pin" maxlength="6" placeholder="6桁">
-  <button onclick="login()">ログイン</button>
+
+<h2>暗証番号</h2>
+
+<input
+type="password"
+id="pin"
+maxlength="6"
+placeholder="6桁の暗証番号">
+
+<button onclick="login()">
+ログイン
+</button>
+
 </div>
 
 <div id="staff" style="display:none;">
 
-  <div class="seat">
-    <h2>①番打席（高性能）</h2>
-    <select id="course1">
-      <option value="60">1時間</option>
-      <option value="120">2時間</option>
-    </select>
-    <button onclick="startSeat(1)">利用開始</button>
-    <button onclick="endSeat(1)">利用終了</button>
-  </div>
+<div class="seat">
+<h2>① 高性能打席</h2>
 
-  <!-- 2～6番も同じ形式 -->
+<select id="course1">
+<option value="60">1時間</option>
+<option value="120">2時間</option>
+</select>
+
+<button class="start" onclick="startSeat(1)">
+利用開始
+</button>
+
+<button class="end" onclick="endSeat(1)">
+利用終了
+</button>
+
+</div>
+
+<div class="seat">
+<h2>② 高性能打席</h2>
+
+<select id="course2">
+<option value="60">1時間</option>
+<option value="120">2時間</option>
+</select>
+
+<button class="start" onclick="startSeat(2)">
+利用開始
+</button>
+
+<button class="end" onclick="endSeat(2)">
+利用終了
+</button>
+
+</div>
+
+<div class="seat">
+<h2>③ 通常打席</h2>
+
+<select id="course3">
+<option value="60">1時間</option>
+<option value="120">2時間</option>
+</select>
+
+<button class="start" onclick="startSeat(3)">
+利用開始
+</button>
+
+<button class="end" onclick="endSeat(3)">
+利用終了
+</button>
+
+</div>
+
+<div class="seat">
+<h2>④ 通常打席</h2>
+
+<select id="course4">
+<option value="60">1時間</option>
+<option value="120">2時間</option>
+</select>
+
+<button class="start" onclick="startSeat(4)">
+利用開始
+</button>
+
+<button class="end" onclick="endSeat(4)">
+利用終了
+</button>
+
+</div>
+
+<div class="seat">
+<h2>⑤ 通常打席</h2>
+
+<select id="course5">
+<option value="60">1時間</option>
+<option value="120">2時間</option>
+</select>
+
+<button class="start" onclick="startSeat(5)">
+利用開始
+</button>
+
+<button class="end" onclick="endSeat(5)">
+利用終了
+</button>
+
+</div>
+
+<div class="seat">
+<h2>⑥ 通常打席</h2>
+
+<select id="course6">
+<option value="60">1時間</option>
+<option value="120">2時間</option>
+</select>
+
+<button class="start" onclick="startSeat(6)">
+利用開始
+</button>
+
+<button class="end" onclick="endSeat(6)">
+利用終了
+</button>
+
+</div>
 
 </div>
 
