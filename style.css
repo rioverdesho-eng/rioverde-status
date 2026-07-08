@@ -119,3 +119,58 @@ header h1{
 }
 
 }
+/* スマホ用 */
+@media (max-width: 600px) {
+
+  body {
+    margin: 10px;
+  }
+
+  header h1 {
+    font-size: 30px;
+  }
+
+  header p {
+    font-size: 18px;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .seat {
+    padding: 18px;
+    border-radius: 15px;
+  }
+
+  .seat h2 {
+    font-size: 24px;
+  }
+
+  .seat p {
+    font-size: 20px;
+  }
+
+  select {
+    width: 100%;
+    font-size: 18px;
+    padding: 10px;
+  }
+
+  button {
+    width: 100%;
+    font-size: 18px;
+    padding: 12px;
+    margin-top: 8px;
+  }
+
+  input[type="password"] {
+    width: 100%;
+    font-size: 18px;
+    padding: 12px;
+    box-sizing: border-box;
+  }
+
+}
