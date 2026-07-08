@@ -28,7 +28,7 @@ window.startSeat = function (seatNo) {
 
   const minutes = Number(course.value);
 
-  const endTime = Date.now() + 1minutes * 60 * 1000;
+  const endTime = Date.now() + minutes * 60 * 1000;
 
   set(ref(db, "seats/" + seatNo), {
     status: "使用中",
