@@ -1,4 +1,5 @@
 import { db } from "./Firebase.js";
+　console.log("app.jsが読み込まれました");
 import {
   ref,
  set,
