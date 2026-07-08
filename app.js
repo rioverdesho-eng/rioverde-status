@@ -1,7 +1,7 @@
 import { db } from "./Firebase.js";
 import {
   ref,
-  set,
+ set,
   onValue,
   get
 } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-database.js";
@@ -29,7 +29,7 @@ window.login = function () {
 };
 
 // 利用開始
-window.startSeat = async function (seatNo) {
+window.startSeat = function (seatNo) {
 
   const course = document.getElementById("course" + seatNo);
 
@@ -37,21 +37,25 @@ window.startSeat = async function (seatNo) {
 
   const endTime = Date.now() + minutes * 60 * 1000;
 
-  await set(ref(db, "seats/" + seatNo), {
+  set(ref(db, "seats/" + seatNo), {
+
     status: "使用中",
     course: minutes,
     endTime: endTime
+
   });
 
 };
 
 // 利用終了
-window.endSeat = async function (seatNo) {
+window.endSeat = function (seatNo) {
 
-  await set(ref(db, "seats/" + seatNo), {
+  set(ref(db, "seats/" + seatNo), {
+
     status: "空席",
     course: 0,
     endTime: 0
+
   });
 
 };
@@ -65,24 +69,28 @@ function updateDisplay(data) {
 
     const seat = data[i];
 
-    const seatText = document.getElementById("seat" + i);
+    const text = document.getElementById("seat" + i);
     const card = document.getElementById("card" + i);
     const time = document.getElementById("time" + i);
 
-    const status = seat?.status || "空席";
+    if (text) {
 
-    if (seatText) {
-      seatText.textContent = status;
+      text.textContent = seat?.status || "空席";
+
     }
 
     if (card) {
 
-      if (status === "使用中") {
+      if (seat?.status === "使用中") {
+
         card.classList.add("occupied");
         card.classList.remove("available");
+
       } else {
+
         card.classList.add("available");
         card.classList.remove("occupied");
+
       }
 
     }
@@ -95,11 +103,13 @@ function updateDisplay(data) {
         seat.endTime > Date.now()
       ) {
 
-        const remain = Math.ceil(
-          (seat.endTime - Date.now()) / 60000
-        );
+        const remain = seat.endTime - Date.now();
 
-        time.textContent = "残り時間：" + remain + "分";
+        const min = Math.floor(remain / 60000);
+        const sec = Math.floor((remain % 60000) / 1000);
+
+        time.textContent =
+          `残り時間：${min}分 ${sec}秒`;
 
       } else {
 
@@ -112,25 +122,22 @@ function updateDisplay(data) {
   }
 
 }
-// Firebaseのデータをリアルタイムで監視
+// Firebaseの変更をリアルタイム反映
 onValue(ref(db, "seats"), (snapshot) => {
 
-  const data = snapshot.val();
-
-  updateDisplay(data);
+  updateDisplay(snapshot.val());
 
 });
 
-// 1秒ごとに残り時間を更新
+// 1秒ごとに更新
 setInterval(async () => {
 
   const snapshot = await get(ref(db, "seats"));
-
   const data = snapshot.val();
 
   if (!data) return;
 
-  let updated = false;
+  let changed = false;
 
   for (let i = 1; i <= 6; i++) {
 
@@ -140,8 +147,7 @@ setInterval(async () => {
 
     if (
       seat.status === "使用中" &&
-      seat.endTime > 0 &&
-      Date.now() >= seat.endTime
+      seat.endTime <= Date.now()
     ) {
 
       await set(ref(db, "seats/" + i), {
@@ -150,13 +156,16 @@ setInterval(async () => {
         endTime: 0
       });
 
-      updated = true;
+      changed = true;
+
     }
 
   }
 
-  if (!updated) {
+  if (!changed) {
+
     updateDisplay(data);
+
   }
 
 }, 1000);
