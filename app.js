@@ -106,7 +106,6 @@ function updateDisplay(data) {
         const remain = seat.endTime - Date.now();
 
         const min = Math.floor(remain / 60000);
-        const sec = Math.floor((remain % 60000) / 1000);
 
         time.textContent =
           `残り時間：${min}分`;
