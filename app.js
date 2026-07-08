@@ -5,7 +5,7 @@ import {
   onValue
 } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-database.js";
 
-const PASSWORD = "123456";
+const PASSWORD = "332211";
 
 // ログイン
 window.login = function () {
