@@ -82,33 +82,42 @@ onValue(ref(db, "seats"), (snapshot) => {
   }
 
 });
-// 30秒ごとに終了時間をチェック
-setInterval(() => {
+// 自動で終了時間をチェック
+function checkEndTime(data) {
 
-  onValue(ref(db, "seats"), (snapshot) => {
+  if (!data) return;
 
-    const data = snapshot.val();
-    if (!data) return;
+  for (let i = 1; i <= 6; i++) {
 
-    for (let i = 1; i <= 6; i++) {
+    if (!data[i]) continue;
 
-      if (!data[i]) continue;
+    if (
+      data[i].status === "使用中" &&
+      data[i].endTime > 0 &&
+      Date.now() >= data[i].endTime
+    ) {
 
-      if (
-        data[i].status === "使用中" &&
-        data[i].endTime <= Date.now()
-      ) {
-
-        set(ref(db, "seats/" + i), {
-          status: "空席",
-          course: 0,
-          endTime: 0
-        });
-
-      }
+      set(ref(db, "seats/" + i), {
+        status: "空席",
+        course: 0,
+        endTime: 0
+      });
 
     }
 
+  }
+
+}
+
+// 30秒ごとに1回だけデータを確認
+setInterval(() => {
+
+  const seatsRef = ref(db, "seats");
+
+  onValue(seatsRef, (snapshot) => {
+    checkEndTime(snapshot.val());
+  }, {
+    onlyOnce: true
   });
 
 }, 30000);
