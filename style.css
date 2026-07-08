@@ -123,54 +123,44 @@ header h1{
 @media (max-width: 600px) {
 
   body {
-    margin: 10px;
+    margin: 0;
+  }
+
+  header {
+    padding: 15px;
   }
 
   header h1 {
-    font-size: 30px;
+    font-size: 28px;
   }
 
   header p {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 12px;
   }
 
   .seat {
-    padding: 18px;
-    border-radius: 15px;
+    padding: 15px;
   }
 
   .seat h2 {
-    font-size: 24px;
+    font-size: 22px;
   }
 
   .seat p {
-    font-size: 20px;
+    font-size: 22px;
   }
 
-  select {
-    width: 100%;
+  select,
+  button,
+  input {
     font-size: 18px;
-    padding: 10px;
-  }
-
-  button {
-    width: 100%;
-    font-size: 18px;
-    padding: 12px;
-    margin-top: 8px;
-  }
-
-  input[type="password"] {
-    width: 100%;
-    font-size: 18px;
-    padding: 12px;
-    box-sizing: border-box;
   }
 
 }
