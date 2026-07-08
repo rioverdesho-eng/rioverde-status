@@ -105,3 +105,55 @@ function updateDisplay(data) {
 
         const remain = Math.ceil(
           (
+// Firebaseを監視
+onValue(ref(db, "seats"), (snapshot) => {
+
+  const data = snapshot.val();
+
+  updateDisplay(data);
+
+});
+
+// 1秒ごとに残り時間を更新
+setInterval(async () => {
+
+  const snapshot = await get(ref(db, "seats"));
+
+  const data = snapshot.val();
+
+  if (!data) return;
+
+  let changed = false;
+
+  for (let i = 1; i <= 6; i++) {
+
+    const seat = data[i];
+
+    if (!seat) continue;
+
+    if (
+      seat.status === "使用中" &&
+      seat.endTime <= Date.now()
+    ) {
+
+      await set(ref(db, "seats/" + i), {
+
+        status: "空席",
+        course: 0,
+        endTime: 0
+
+      });
+
+      changed = true;
+
+    }
+
+  }
+
+  if (!changed) {
+
+    updateDisplay(data);
+
+  }
+
+}, 1000);
